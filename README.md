@@ -73,6 +73,33 @@ Other reserved filenames:-
 globals.css - some CSS styles and this file is imported into 'app/layout.js' and this 'globals.css' is available on every page that's being loaded.
 icon.png - if we give a file named 'icon.png' in app then this image given as 'icon.png' will be set as image icon in the tab in browser. Because 'icon.png' given as favicon which is the icon to tab.
 
+In 'app' folder we add folders to provide the routes.
+If we want to add a new component inside another component say 'header.js'. ' 'header.js' can be included in 'app/page.js' by adding the 'header.js' inside a folder named 'components' (and the 'components' folder placed in the root next to 'app' folder) .
+
+components/header.js
+
+export default function Header(){
+return 
+<>
+<img src="/logo.png" alt = "A logo" />
+</>
+}
+
+
+
+app/page.js
+
+import Link from 'next/link';
+import Header from '../components/header.js';
+
+export default function Home() {
+  return (
+    <main>
+      <Header />  
+      <p><Link to="/about>About Us</Link></p>  
+   </main>
+  );
+}
 
 
 
