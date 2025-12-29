@@ -102,6 +102,48 @@ export default function Home() {
 }
 
 
+If we want to add 'blog' folder inside app as route and inside blog route there should be post-1, post-2 so on. If 'app/blog' should be a route it should have individual page.js file (i.e blog/page.js). But there is a problem here there can be multiple posts inside 'blog' route which we don't know (which depends on dynamic data from the database like post-1, post-2 and so on). To overcome this problem we use dynamic route (i.e we define route once but is capable of rendering different pages for different blog posts). To create dynamic route we place an identifier/placeholder (name of any choice) enclosed in square bracket (example:- [slug]  ) . Like 'app/blog/[slug]'. the identifier or placeholder (here 'slug' ) and inside 'app/blog/[slug]' we need a file 'page.js' (like:-  app/blog/[slug]/page.js  ). Where this 'page.js' file will provide content to the dynamic route pages (here slug). There also a page.js file inside 'app/blog' folder (i.e app/blog/page.js  ).
+
+
+
+ app/blog/page.js
+
+
+import Link from 'next/link';
+
+export default function BlogPage() {
+  return (
+<main>
+ <h1>Blog</h1>
+ <p>
+  <Link href="/blog/post-1">Post 1 </Link>
+ </p>
+<p>
+  <Link href="/blog/post-2">Post 2 </Link>
+ </p>
+</main>
+);
+}
+
+
+
+ app/blog/[slug]/page.js
+
+
+export default function BlogPostPage({ params }) {
+  return (
+<main>
+ <h1>Blog Post</h1>
+{params.slug}
+</main>
+);
+}
+
+
+When we type this in  URL 'http://localhost:3000/blog' (the file component 'BlogPage' is loaded) where you will get to Links To Post 1 and Post 2. On clicking on any of these links 'Post 1' or 'Post 2' the content in the file ' app/blog/[slug]/page.js' comes that's with a header named 'Blog Post' (where 'BlogPostPage' component is loaded). But the URL changes to 'http://localhost:3000/blog/post-1' if 'Post-1' link is clicked and the URL changes to 'http://localhost:3000/blog/post-2' if 'Post-2' link is clicked. '[slug]' (i.e placeholder enclosed in square bracket) denotes that after 'http://localhost:3000/blog' we need a dynamic route say 'post-1' or 'post-2' or so on which we don't know since the route is dynamic. Here 'slug' which is the placeholder/identifier which give access to concrete value that we get when route is loaded.
+Here in 'BlogPostPage' gets a props called 'params' (which is set by Nextjs) , 'params' are not set manually since we don't have to pass it manually the 'BlogPostPage', instead Nextjs are setting up the props in 'BlogPostPage' (i.e params). 'params' is an object which comprises of placeholder (here 'slug' ) had in dynamic route will be a key and value stored under key will be a concrete value encoded in the URL (here in 'http://localhost:3000/blog/post-1') the value will be 'post-1'). '{params.slug}' (where slug is the placeholder and params is the props we pass in dynamic route page.js file i.e in 'BlogPostPage' component) will give value 'post-1' if we are in the URL 'http://localhost:3000/blog/post-1'. This '{params.slug}' helps to extract value from database value for 'post-1' here for the link 'http://localhost:3000/blog/post-1' from  '{params.slug}' and place the content for post-1 in the page.
+
+
 
 
 
