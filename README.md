@@ -6,6 +6,8 @@ page.js - define page content
 layout.js - define wrapper around pages
 not-found.js - define 'Not found' fallback page 
 error.js - define error fallback page
+loading.js => Fallback page which is shown whilst sibling or nested pages (or layouts) are fetching data
+route.js => Allows you to create an API route (i.e., a page which does NOT return JSX code but instead data, e.g., in the JSON format)
 
 There is a root page inside 'app' folder which defines the content of page inside 'http://localhost:3000' and the file that defines content inside 'http://localhost:3000' is 'page.js' (inside app folder) and this 'page.js' is the root file inside app folder.
 
